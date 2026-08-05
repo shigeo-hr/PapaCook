@@ -374,4 +374,3 @@ PapaCook(パパクック)は、家にある食材を入力するだけで、AI�
 - comment : text / コメント
 
 ※ 上記全テーブルに created_at / updated_at(datetime)を共通で保持しています。
-
