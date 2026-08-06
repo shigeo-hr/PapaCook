@@ -311,6 +311,11 @@ PapaCook(パパクック)は、家にある食材を入力するだけで、AI�
 ### ER図
 [![Image from Gyazo](https://i.gyazo.com/f3898b131b236f393b2c543e50cfe700.png)](https://gyazo.com/f3898b131b236f393b2c543e50cfe700)
 
+### ER図の補足説明
+- users と children は 1対多 の関係です
+- children と ingredients は child_dislike_ingredients を介して 多対多 の関係です
+- recipes と ingredients は recipe_ingredients を介して 多対多 の関係です
+
 ### 本サービスの概要(700文字以内)
 
 PapaCook(パパクック)は、家にある食材を入力するだけで、AIが子供も大人も楽しめるレシピを提案してくれる、休日パパのためのレシピアシスタントアプリです。
