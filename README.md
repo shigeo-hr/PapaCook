@@ -312,7 +312,13 @@ PapaCook(パパクック)は、家にある食材を入力するだけで、AI�
 [![Image from Gyazo](https://i.gyazo.com/f3898b131b236f393b2c543e50cfe700.png)](https://gyazo.com/f3898b131b236f393b2c543e50cfe700)
 
 ### ER図の補足説明
+**1対多の関係**
 - users と children は 1対多 の関係です
+- users と recipes は 1対多 の関係です
+- recipes と feedbacks は 1対多 の関係です
+- children と feedbacks は 1対多 の関係です
+
+**多対多の関係（中間テーブルを使用）**
 - children と ingredients は child_dislike_ingredients を介して 多対多 の関係です
 - recipes と ingredients は recipe_ingredients を介して 多対多 の関係です
 
