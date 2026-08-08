@@ -308,4 +308,4 @@ PapaCook(パパクック)は、家にある食材を入力するだけで、AI�
 - [ ] パスワード
 
 ### ER図
-[![Image from Gyazo](https://i.gyazo.com/f3898b131b236f393b2c543e50cfe700.png)](https://gyazo.com/f3898b131b236f393b2c543e50cfe700)
+[![Image from Gyazo](https://i.gyazo.com/36e9161a188218d056b2bf6b3accd5f2.png)](https://gyazo.com/36e9161a188218d056b2bf6b3accd5f2)
