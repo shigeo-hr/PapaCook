@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>新規登録 | PapaCook</title>
+</head>
+<body>
+    <h1>新規登録</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録する</button>
+    </form>
+</body>
+</html>
