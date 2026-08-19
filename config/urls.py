@@ -15,8 +15,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.http import HttpResponse
+from django.urls import include, path
+
+
+def top(request):
+    # TODO: issue #6(TOPページの作成)で本実装に置き換える。URL名'top'はそのまま使う想定。
+    return HttpResponse('PapaCook TOP (placeholder)')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('accounts.urls')),
+    path('', top, name='top'),
 ]
