@@ -15,20 +15,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.urls import include, path
-
-
-@login_required
-def top(request):
-    # TODO: issue #6(TOPページの作成)で本実装に置き換える。URL名'top'はそのまま使う想定。
-    # README方針(新規登録・ログイン以外は全ページログイン必須)に合わせ、暫定でlogin_requiredを付与している。
-    return render(request, 'top.html')
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    path('', top, name='top'),
+    path('', include('pages.urls')),
 ]
