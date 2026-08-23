@@ -66,3 +66,16 @@ class PasswordChangeForm(BasePasswordChangeForm):
         'password_mismatch': '新しいパスワードが一致しません。',
         'password_incorrect': '現在のパスワードが正しくありません。',
     }
+
+
+class EmailChangeForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('email',)
+        labels = {'email': 'メールアドレス'}
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError('このメールアドレスは既に登録されています。')
+        return email
