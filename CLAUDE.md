@@ -39,6 +39,13 @@ pip freeze > requirements.txt     # regenerate after adding a new dependency
 - `SECRET_KEY` and `DEBUG` are currently hardcoded in `config/settings.py` rather than read from `.env`, even though both also appear in `.env`. Be aware of this mismatch if working on settings/config.
 - `MAILERS` in `config/settings.py` is set up as if for a mail backend dict but Django's actual mail setting is `EMAIL_BACKEND`/`EMAIL_*` — this looks like a leftover/misconfiguration, not an intentional custom setup.
 
+## デザイン方針(現時点)
+
+- 現在CSSフレームワークは未導入。全機能の実装を優先し、装飾は後回しにする方針。
+- 各ページのHTML/テンプレートは、装飾なしのシンプルな構造(bare HTML)のまま実装すること。
+- インラインスタイルや個別ページごとの独自CSSは書かないこと。全機能実装後にBootstrap等のCSSフレームワークを一括導入し、まとめてデザインを整える予定のため。
+- クラス名は将来Bootstrapのクラス(例: btn, form-control, container など)を当てはめやすいよう、意味のある命名(例: ingredient-form, recipe-card)にしておくこと。
+
 ## Architecture notes
 
 - Single Django project (`config`) with the standard settings/urls/wsgi/asgi layout; no apps have been created yet. When adding features, they should live in their own Django apps (e.g. `recipes`, `ingredients`, `children`, `accounts`) rather than in `config`.
