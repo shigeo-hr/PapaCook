@@ -4,8 +4,7 @@
 
 {% block content %}
     <p>PapaCook TOP</p>
-    {# TODO: issue #13(食材入力機能)実装後、実際の食材入力ページへのリンクに差し替える #}
-    <a href="#">今日の食材を入力する</a>
+    <a href="{% url 'ingredients:input' %}">今日の食材を入力する</a>
 
     {# TODO: マイページ実装後はそちらに導線を移す暫定リンク #}
     <p><a href="{% url 'accounts:password_change' %}">パスワードを変更する</a></p>
