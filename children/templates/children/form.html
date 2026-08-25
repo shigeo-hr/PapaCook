@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}子供プロフィールを登録する | PapaCook{% endblock %}
+
+{% block content %}
+    <h1>子供プロフィールを登録する</h1>
+    <form method="post" class="child-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">登録する</button>
+    </form>
+
+    <p><a href="{% url 'children:list' %}">一覧に戻る</a></p>
+{% endblock %}
