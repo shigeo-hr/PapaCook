@@ -7,6 +7,7 @@
     <a href="{% url 'ingredients:input' %}">今日の食材を入力する</a>
 
     {# TODO: マイページ実装後はそちらに導線を移す暫定リンク #}
+    <p><a href="{% url 'children:list' %}">子供プロフィールを管理する</a></p>
     <p><a href="{% url 'accounts:password_change' %}">パスワードを変更する</a></p>
     <p><a href="{% url 'accounts:email_change' %}">メールアドレスを変更する</a></p>
 {% endblock %}

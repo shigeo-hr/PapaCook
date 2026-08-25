@@ -1,0 +1,84 @@
+from django.contrib.auth import get_user_model
+from django.test import TestCase
+from django.urls import reverse
+
+from .models import Child
+
+User = get_user_model()
+
+
+class ChildModelTest(TestCase):
+    def test_str_returns_name(self):
+        user = User.objects.create_user(
+            username='parent', email='parent@example.com', password='TestPass12345',
+        )
+        child = Child.objects.create(user=user, name='たろう', age=7)
+        self.assertEqual(str(child), 'たろう')
+
+
+class ChildListViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser', email='testuser@example.com', password='TestPass12345',
+        )
+        self.other_user = User.objects.create_user(
+            username='otheruser', email='otheruser@example.com', password='TestPass12345',
+        )
+        self.url = reverse('children:list')
+
+    def test_redirects_to_login_when_not_authenticated(self):
+        response = self.client.get(self.url)
+        self.assertRedirects(
+            response, f"{reverse('accounts:login')}?next={self.url}",
+        )
+
+    def test_shows_only_own_children(self):
+        Child.objects.create(user=self.user, name='たろう', age=7)
+        Child.objects.create(user=self.other_user, name='はなこ', age=5)
+
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        names = [child.name for child in response.context['children']]
+        self.assertEqual(names, ['たろう'])
+
+
+class ChildCreateViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser', email='testuser@example.com', password='TestPass12345',
+        )
+        self.url = reverse('children:create')
+
+    def test_redirects_to_login_when_not_authenticated(self):
+        response = self.client.get(self.url)
+        self.assertRedirects(
+            response, f"{reverse('accounts:login')}?next={self.url}",
+        )
+
+    def test_valid_submission_creates_child_owned_by_current_user(self):
+        self.client.force_login(self.user)
+
+        response = self.client.post(self.url, {
+            'name': 'たろう',
+            'age': 7,
+            'likes': 'カレー',
+            'dislikes': 'ピーマン',
+            'allergies': '卵',
+        })
+
+        self.assertRedirects(response, reverse('children:list'))
+        child = Child.objects.get(name='たろう')
+        self.assertEqual(child.user, self.user)
+        self.assertEqual(child.dislikes, 'ピーマン')
+        self.assertEqual(child.allergies, '卵')
+
+    def test_missing_required_fields_shows_validation_error(self):
+        self.client.force_login(self.user)
+        response = self.client.post(self.url, {'name': '', 'age': ''})
+
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(response.context['form'], 'name', 'This field is required.')
+        self.assertFormError(response.context['form'], 'age', 'This field is required.')
+        self.assertFalse(Child.objects.exists())

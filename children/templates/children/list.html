@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}子供プロフィール一覧 | PapaCook{% endblock %}
+
+{% block content %}
+    <h1>子供プロフィール一覧</h1>
+
+    {% if not children %}
+        <p>まだ子供プロフィールが登録されていません。</p>
+    {% else %}
+        <ul class="child-list">
+            {% for child in children %}
+                <li class="child-card">
+                    <h2>{{ child.name }}({{ child.age }}歳)</h2>
+                    {% if child.likes %}<p>好きな食べ物: {{ child.likes }}</p>{% endif %}
+                    {% if child.dislikes %}<p>苦手な食べ物: {{ child.dislikes }}</p>{% endif %}
+                    {% if child.allergies %}<p>アレルギー: {{ child.allergies }}</p>{% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p><a href="{% url 'children:create' %}">子供プロフィールを登録する</a></p>
+{% endblock %}
