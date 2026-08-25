@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}レシピ提案 | PapaCook{% endblock %}
+
+{% block content %}
+    <h1>提案レシピ一覧</h1>
+
+    {% if not recipes %}
+        <p>条件に合うレシピが見つかりませんでした。</p>
+    {% else %}
+        <ul class="recipe-list">
+            {% for recipe in recipes %}
+                <li class="recipe-card">
+                    <h2>{{ recipe.name }}</h2>
+                    <p>{{ recipe.summary }}</p>
+                    {% if recipe.for_kids %}<span class="recipe-tag">子供向け</span>{% endif %}
+                    {% if recipe.quick %}<span class="recipe-tag">時短</span>{% endif %}
+                    <p><a href="{% url 'recipes:detail' pk=recipe.id %}">詳細を見る</a></p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p><a href="{% url 'recipes:conditions' %}">条件を選び直す</a></p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}条件を選択する | PapaCook{% endblock %}
+
+{% block content %}
+    <h1>提案条件を選択する</h1>
+    <form method="post" class="condition-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">レシピを提案してもらう</button>
+    </form>
+{% endblock %}
