@@ -15,6 +15,7 @@
                     {% if child.likes %}<p>好きな食べ物: {{ child.likes }}</p>{% endif %}
                     {% if child.dislikes %}<p>苦手な食べ物: {{ child.dislikes }}</p>{% endif %}
                     {% if child.allergies %}<p>アレルギー: {{ child.allergies }}</p>{% endif %}
+                    <p><a href="{% url 'children:update' pk=child.pk %}">編集する</a></p>
                 </li>
             {% endfor %}
         </ul>
