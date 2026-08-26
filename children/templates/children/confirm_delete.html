@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}子供プロフィールを削除する | PapaCook{% endblock %}
+
+{% block content %}
+    <h1>子供プロフィールを削除する</h1>
+    <p>「{{ object.name }}」のプロフィールを削除します。よろしいですか?</p>
+    <form method="post" class="child-delete-form">
+        {% csrf_token %}
+        <button type="submit">削除する</button>
+    </form>
+
+    <p><a href="{% url 'children:list' %}">キャンセルして一覧に戻る</a></p>
+{% endblock %}

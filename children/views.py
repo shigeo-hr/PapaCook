@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, DeleteView, ListView
 
 from .forms import ChildForm
 from .models import Child
@@ -22,3 +22,11 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class ChildDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'children/confirm_delete.html'
+    success_url = reverse_lazy('children:list')
+
+    def get_queryset(self):
+        return Child.objects.filter(user=self.request.user)

@@ -82,3 +82,48 @@ class ChildCreateViewTest(TestCase):
         self.assertFormError(response.context['form'], 'name', 'This field is required.')
         self.assertFormError(response.context['form'], 'age', 'This field is required.')
         self.assertFalse(Child.objects.exists())
+
+
+class ChildDeleteViewTest(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser', email='testuser@example.com', password='TestPass12345',
+        )
+        self.other_user = User.objects.create_user(
+            username='otheruser', email='otheruser@example.com', password='TestPass12345',
+        )
+        self.child = Child.objects.create(user=self.user, name='たろう', age=7)
+        self.url = reverse('children:delete', kwargs={'pk': self.child.pk})
+
+    def test_redirects_to_login_when_not_authenticated(self):
+        response = self.client.get(self.url)
+        self.assertRedirects(
+            response, f"{reverse('accounts:login')}?next={self.url}",
+        )
+
+    def test_get_renders_confirmation_page(self):
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'children/confirm_delete.html')
+        self.assertTrue(Child.objects.filter(pk=self.child.pk).exists())
+
+    def test_other_users_child_returns_404(self):
+        self.client.force_login(self.other_user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 404)
+
+    def test_post_deletes_child_and_redirects(self):
+        self.client.force_login(self.user)
+        response = self.client.post(self.url)
+
+        self.assertRedirects(response, reverse('children:list'))
+        self.assertFalse(Child.objects.filter(pk=self.child.pk).exists())
+
+    def test_other_user_cannot_delete_via_post(self):
+        self.client.force_login(self.other_user)
+        response = self.client.post(self.url)
+
+        self.assertEqual(response.status_code, 404)
+        self.assertTrue(Child.objects.filter(pk=self.child.pk).exists())
