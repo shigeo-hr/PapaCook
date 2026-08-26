@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}子供プロフィールを登録する | PapaCook{% endblock %}
+{% block title %}{% if form.instance.pk %}子供プロフィールを編集する{% else %}子供プロフィールを登録する{% endif %} | PapaCook{% endblock %}
 
 {% block content %}
-    <h1>子供プロフィールを登録する</h1>
+    <h1>{% if form.instance.pk %}子供プロフィールを編集する{% else %}子供プロフィールを登録する{% endif %}</h1>
     <form method="post" class="child-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">登録する</button>
+        <button type="submit">{% if form.instance.pk %}更新する{% else %}登録する{% endif %}</button>
     </form>
 
     <p><a href="{% url 'children:list' %}">一覧に戻る</a></p>
