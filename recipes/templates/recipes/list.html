@@ -11,11 +11,11 @@
         <ul class="recipe-list">
             {% for recipe in recipes %}
                 <li class="recipe-card">
-                    <h2>{{ recipe.name }}</h2>
-                    <p>{{ recipe.summary }}</p>
-                    {% if recipe.for_kids %}<span class="recipe-tag">子供向け</span>{% endif %}
-                    {% if recipe.quick %}<span class="recipe-tag">時短</span>{% endif %}
-                    <p><a href="{% url 'recipes:detail' pk=recipe.id %}">詳細を見る</a></p>
+                    <h2>{{ recipe.title }}</h2>
+                    {% for condition in recipe.conditions.all %}
+                        <span class="recipe-tag">{{ condition.name }}</span>
+                    {% endfor %}
+                    <p><a href="{% url 'recipes:detail' pk=recipe.pk %}">詳細を見る</a></p>
                 </li>
             {% endfor %}
         </ul>
