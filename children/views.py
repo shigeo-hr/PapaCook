@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, ListView, UpdateView
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from .forms import ChildForm
 from .models import Child
@@ -37,3 +37,11 @@ class ChildUpdateView(LoginRequiredMixin, UpdateView):
         response = super().form_valid(form)
         messages.success(self.request, '子供プロフィールを更新しました。')
         return response
+
+
+class ChildDeleteView(LoginRequiredMixin, DeleteView):
+    template_name = 'children/confirm_delete.html'
+    success_url = reverse_lazy('children:list')
+
+    def get_queryset(self):
+        return Child.objects.filter(user=self.request.user)
