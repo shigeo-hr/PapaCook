@@ -1,24 +1,19 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ recipe.name }} | PapaCook{% endblock %}
+{% block title %}{{ recipe.title }} | PapaCook{% endblock %}
 
 {% block content %}
-    <h1 class="recipe-title">{{ recipe.name }}</h1>
-    <p>{{ recipe.summary }}</p>
+    <h1 class="recipe-title">{{ recipe.title }}</h1>
 
     <h2>材料</h2>
     <ul class="recipe-materials">
-        {% for material in recipe.materials %}
-            <li>{{ material }}</li>
+        {% for ingredient in recipe.ingredients.all %}
+            <li>{{ ingredient.name }}</li>
         {% endfor %}
     </ul>
 
     <h2>作り方</h2>
-    <ol class="recipe-steps">
-        {% for step in recipe.steps %}
-            <li>{{ step }}</li>
-        {% endfor %}
-    </ol>
+    <div class="recipe-instructions">{{ recipe.instructions|linebreaks }}</div>
 
     <p><a href="{% url 'recipes:list' %}">一覧に戻る</a></p>
 {% endblock %}
