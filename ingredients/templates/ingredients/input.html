@@ -3,10 +3,35 @@
 {% block title %}食材を入力する | PapaCook{% endblock %}
 
 {% block content %}
-    <h1>今日の食材を入力する</h1>
+    <h1 class="mb-4">今日の食材を入力する</h1>
+    {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {% for error in form.non_field_errors %}
+                <div>{{ error }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">次へ</button>
+        <div class="mb-3">
+            <label class="form-label">{{ form.common_ingredients.label }}</label>
+            {% for checkbox in form.common_ingredients %}
+                <div class="form-check">
+                    {{ checkbox.tag }}
+                    <label class="form-check-label" for="{{ checkbox.id_for_label }}">{{ checkbox.choice_label }}</label>
+                </div>
+            {% endfor %}
+            {% for error in form.common_ingredients.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.other_ingredients.id_for_label }}" class="form-label">{{ form.other_ingredients.label }}</label>
+            {{ form.other_ingredients }}
+            {% for error in form.other_ingredients.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">次へ</button>
     </form>
 {% endblock %}

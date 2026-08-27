@@ -3,12 +3,11 @@
 {% block title %}子供プロフィールを削除する | PapaCook{% endblock %}
 
 {% block content %}
-    <h1>子供プロフィールを削除する</h1>
+    <h1 class="mb-4">子供プロフィールを削除する</h1>
     <p>「{{ object.name }}」のプロフィールを削除します。よろしいですか?</p>
-    <form method="post" class="child-delete-form">
+    <form method="post" class="child-delete-form d-flex gap-2 align-items-center">
         {% csrf_token %}
-        <button type="submit">削除する</button>
+        <button type="submit" class="btn btn-outline-danger">削除する</button>
+        <a href="{% url 'children:list' %}" class="link-secondary">キャンセルして一覧に戻る</a>
     </form>
-
-    <p><a href="{% url 'children:list' %}">キャンセルして一覧に戻る</a></p>
 {% endblock %}

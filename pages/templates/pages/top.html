@@ -3,11 +3,39 @@
 {% block title %}TOP | PapaCook{% endblock %}
 
 {% block content %}
-    <p>PapaCook TOP</p>
-    <a href="{% url 'ingredients:input' %}">今日の食材を入力する</a>
+    <div class="p-5 mb-4 bg-primary-subtle rounded-3 text-center">
+        <h1 class="display-5 fw-bold">今日の晩ごはん、パパが決める。</h1>
+        <p class="fs-5 col-lg-8 mx-auto mb-0">
+            家にある食材を入力するだけで、子供も大人も楽しめるレシピをAIが提案します。
+        </p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-egg-fried display-4 text-primary mb-3"></i>
+                    <h2 class="card-title h5">今日の食材を入力する</h2>
+                    <p class="card-text">家にある食材から、AIがレシピを提案します。</p>
+                    <a href="{% url 'ingredients:input' %}" class="btn btn-primary btn-lg">食材を入力する</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-people-fill display-4 text-primary mb-3"></i>
+                    <h2 class="card-title h5">子供プロフィールを管理する</h2>
+                    <p class="card-text">好き嫌いやアレルギーを登録して、提案に反映できます。</p>
+                    <a href="{% url 'children:list' %}" class="btn btn-primary btn-lg">子供プロフィールを見る</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {# TODO: マイページ実装後はそちらに導線を移す暫定リンク #}
-    <p><a href="{% url 'children:list' %}">子供プロフィールを管理する</a></p>
-    <p><a href="{% url 'accounts:password_change' %}">パスワードを変更する</a></p>
-    <p><a href="{% url 'accounts:email_change' %}">メールアドレスを変更する</a></p>
+    <div class="mt-4 d-flex gap-3">
+        <a href="{% url 'accounts:password_change' %}" class="link-secondary">パスワードを変更する</a>
+        <a href="{% url 'accounts:email_change' %}" class="link-secondary">メールアドレスを変更する</a>
+    </div>
 {% endblock %}

@@ -3,10 +3,17 @@
 {% block title %}条件を選択する | PapaCook{% endblock %}
 
 {% block content %}
-    <h1>提案条件を選択する</h1>
+    <h1 class="mb-4">提案条件を選択する</h1>
     <form method="post" class="condition-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">レシピを提案してもらう</button>
+        <div class="form-check mb-2">
+            {{ form.for_kids }}
+            <label class="form-check-label" for="{{ form.for_kids.id_for_label }}">{{ form.for_kids.label }}</label>
+        </div>
+        <div class="form-check mb-4">
+            {{ form.quick }}
+            <label class="form-check-label" for="{{ form.quick.id_for_label }}">{{ form.quick.label }}</label>
+        </div>
+        <button type="submit" class="btn btn-primary">レシピを提案してもらう</button>
     </form>
 {% endblock %}

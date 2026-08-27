@@ -3,17 +3,25 @@
 {% block title %}{{ recipe.title }} | PapaCook{% endblock %}
 
 {% block content %}
-    <h1 class="recipe-title">{{ recipe.title }}</h1>
+    <div class="text-center bg-primary-subtle rounded-3 py-5 mb-4 recipe-thumbnail">
+        <i class="bi bi-cup-hot-fill display-1 text-primary"></i>
+    </div>
 
-    <h2>材料</h2>
-    <ul class="recipe-materials">
-        {% for ingredient in recipe.ingredients.all %}
-            <li>{{ ingredient.name }}</li>
-        {% endfor %}
-    </ul>
+    <h1 class="recipe-title mb-4">{{ recipe.title }}</h1>
 
-    <h2>作り方</h2>
-    <div class="recipe-instructions">{{ recipe.instructions|linebreaks }}</div>
+    <div class="card mb-4">
+        <div class="card-header">材料</div>
+        <ul class="list-group list-group-flush recipe-materials">
+            {% for ingredient in recipe.ingredients.all %}
+                <li class="list-group-item">{{ ingredient.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-    <p><a href="{% url 'recipes:list' %}">一覧に戻る</a></p>
+    <div class="card mb-4">
+        <div class="card-header">作り方</div>
+        <div class="card-body recipe-instructions">{{ recipe.instructions|linebreaks }}</div>
+    </div>
+
+    <a href="{% url 'recipes:list' %}" class="link-secondary">一覧に戻る</a>
 {% endblock %}
