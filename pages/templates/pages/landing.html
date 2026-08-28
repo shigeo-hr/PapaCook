@@ -3,8 +3,11 @@
 {% block title %}PapaCook | 今日のご飯、どうする?{% endblock %}
 
 {% block content %}
-    <div class="p-5 mb-5 bg-primary-subtle rounded-3 text-center">
-        <h1 class="display-5 fw-bold">「今日のご飯、どうする?」に、迷わず答えられるパパへ。</h1>
+    <div class="p-5 mb-5 bg-primary-subtle bg-gradient rounded-3 text-center">
+        <h1 class="display-5 fw-bold">
+            「今日のご飯、どうする?」に、<br class="d-none d-md-block">
+            迷わず答えられるパパへ。
+        </h1>
         <p class="fs-5 col-lg-8 mx-auto mb-4">
             食材を入力するだけで、AIが子供も大人も楽しめるレシピを提案。
             使うほど、わが家仕様に育っていく献立アシスタント。
@@ -17,35 +20,37 @@
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col">
-            <div class="card h-100 text-center">
+            <div class="card h-100 text-center feature-card shadow-sm">
                 <div class="card-body">
-                    <i class="bi bi-egg-fried display-4 text-primary mb-3"></i>
+                    <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3 mb-3">
+                        <i class="bi bi-egg-fried fs-2"></i>
+                    </div>
                     <h2 class="card-title h5">食材を入力するだけ</h2>
                     <p class="card-text">冷蔵庫にある食材を入力すると、AIがレシピを提案します。</p>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 text-center">
+            <div class="card h-100 text-center feature-card shadow-sm">
                 <div class="card-body">
-                    <i class="bi bi-people-fill display-4 text-primary mb-3"></i>
+                    <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3 mb-3">
+                        <i class="bi bi-people-fill fs-2"></i>
+                    </div>
                     <h2 class="card-title h5">子供の好き嫌い・アレルギーに対応</h2>
                     <p class="card-text">子供プロフィールを登録すれば、苦手な食材を避けた提案になります。</p>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="card h-100 text-center">
+            <div class="card h-100 text-center feature-card shadow-sm">
                 <div class="card-body">
-                    <i class="bi bi-sliders display-4 text-primary mb-3"></i>
+                    <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3 mb-3">
+                        <i class="bi bi-sliders fs-2"></i>
+                    </div>
                     <h2 class="card-title h5">子供向け・時短などの条件で絞り込み</h2>
                     <p class="card-text">その日の状況に合わせた条件で、ぴったりのレシピを提案します。</p>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="text-center mt-5">
-        <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-lg">無料で始める</a>
     </div>
 {% endblock %}
