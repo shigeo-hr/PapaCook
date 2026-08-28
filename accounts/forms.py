@@ -17,6 +17,8 @@ class SignupForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].label = 'パスワード'
         self.fields['password2'].label = 'パスワード(確認)'
+        for field in self.fields.values():
+            field.widget.attrs.setdefault('class', 'form-control')
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -30,12 +32,12 @@ class LoginForm(AuthenticationForm):
     # 名前はusernameのまま型・ラベルだけメールアドレス向けに差し替える。
     username = forms.EmailField(
         label='メールアドレス',
-        widget=forms.EmailInput(attrs={'autofocus': True}),
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'autofocus': True}),
     )
     password = forms.CharField(
         label='パスワード',
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'current-password'}),
     )
 
     error_messages = {
@@ -48,18 +50,20 @@ class PasswordChangeForm(BasePasswordChangeForm):
     old_password = forms.CharField(
         label='現在のパスワード',
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'current-password', 'autofocus': True}),
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', 'autocomplete': 'current-password', 'autofocus': True},
+        ),
     )
     new_password1 = forms.CharField(
         label='新しいパスワード',
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
         help_text=password_validation.password_validators_help_text_html(),
     )
     new_password2 = forms.CharField(
         label='新しいパスワード(確認)',
         strip=False,
-        widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password'}),
     )
 
     error_messages = {
@@ -73,6 +77,11 @@ class EmailChangeForm(forms.ModelForm):
         model = User
         fields = ('email',)
         labels = {'email': 'メールアドレス'}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.setdefault('class', 'form-control')
 
     def clean_email(self):
         email = self.cleaned_data['email']

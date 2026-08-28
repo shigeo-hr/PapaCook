@@ -6,12 +6,12 @@ from .models import Ingredient
 class IngredientInputForm(forms.Form):
     common_ingredients = forms.ModelMultipleChoiceField(
         queryset=Ingredient.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
+        widget=forms.CheckboxSelectMultiple(attrs={'class': 'form-check-input'}),
         required=False,
         label='よく使う食材',
     )
     other_ingredients = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 3}),
+        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         required=False,
         label='その他の食材(カンマ区切りで入力)',
     )

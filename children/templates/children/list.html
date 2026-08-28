@@ -3,27 +3,31 @@
 {% block title %}子供プロフィール一覧 | PapaCook{% endblock %}
 
 {% block content %}
-    <h1>子供プロフィール一覧</h1>
+    <h1 class="mb-4">子供プロフィール一覧</h1>
 
     {% if not children %}
         <p>まだ子供プロフィールが登録されていません。</p>
     {% else %}
-        <ul class="child-list">
+        <div class="row row-cols-1 row-cols-md-2 g-4 child-list">
             {% for child in children %}
-                <li class="child-card">
-                    <h2>{{ child.name }}({{ child.age }}歳)</h2>
-                    {% if child.likes %}<p>好きな食べ物: {{ child.likes }}</p>{% endif %}
-                    {% if child.dislikes %}<p>苦手な食べ物: {{ child.dislikes }}</p>{% endif %}
-                    {% if child.allergies %}<p>アレルギー: {{ child.allergies }}</p>{% endif %}
-                    <p><a href="{% url 'children:update' pk=child.pk %}">編集する</a></p>
-                    <p>
-                        <a href="{% url 'children:delete' pk=child.pk %}"
-                           onclick="return confirm('「{{ child.name }}」のプロフィールを削除します。よろしいですか?');">削除する</a>
-                    </p>
-                </li>
+                <div class="col">
+                    <div class="card h-100 child-card">
+                        <div class="card-body">
+                            <h2 class="card-title h5">{{ child.name }}({{ child.age }}歳)</h2>
+                            {% if child.likes %}<p class="card-text mb-1">好きな食べ物: {{ child.likes }}</p>{% endif %}
+                            {% if child.dislikes %}<p class="card-text mb-1">苦手な食べ物: {{ child.dislikes }}</p>{% endif %}
+                            {% if child.allergies %}<p class="card-text mb-1">アレルギー: {{ child.allergies }}</p>{% endif %}
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0 d-flex gap-2">
+                            <a href="{% url 'children:update' pk=child.pk %}" class="btn btn-primary btn-sm">編集する</a>
+                            <a href="{% url 'children:delete' pk=child.pk %}" class="btn btn-outline-danger btn-sm"
+                               onclick="return confirm('「{{ child.name }}」のプロフィールを削除します。よろしいですか?');">削除する</a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% endif %}
 
-    <p><a href="{% url 'children:create' %}">子供プロフィールを登録する</a></p>
+    <p class="mt-4"><a href="{% url 'children:create' %}" class="btn btn-primary">子供プロフィールを登録する</a></p>
 {% endblock %}

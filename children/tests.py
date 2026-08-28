@@ -79,8 +79,8 @@ class ChildCreateViewTest(TestCase):
         response = self.client.post(self.url, {'name': '', 'age': ''})
 
         self.assertEqual(response.status_code, 200)
-        self.assertFormError(response.context['form'], 'name', 'This field is required.')
-        self.assertFormError(response.context['form'], 'age', 'This field is required.')
+        self.assertFormError(response.context['form'], 'name', 'このフィールドは必須です。')
+        self.assertFormError(response.context['form'], 'age', 'このフィールドは必須です。')
         self.assertFalse(Child.objects.exists())
 
 

@@ -3,23 +3,32 @@
 {% block title %}レシピ提案 | PapaCook{% endblock %}
 
 {% block content %}
-    <h1>提案レシピ一覧</h1>
+    <h1 class="mb-4">提案レシピ一覧</h1>
 
     {% if not recipes %}
         <p>条件に合うレシピが見つかりませんでした。</p>
     {% else %}
-        <ul class="recipe-list">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 recipe-list">
             {% for recipe in recipes %}
-                <li class="recipe-card">
-                    <h2>{{ recipe.title }}</h2>
-                    {% for condition in recipe.conditions.all %}
-                        <span class="recipe-tag">{{ condition.name }}</span>
-                    {% endfor %}
-                    <p><a href="{% url 'recipes:detail' pk=recipe.pk %}">詳細を見る</a></p>
-                </li>
+                <div class="col">
+                    <div class="card h-100 recipe-card">
+                        <div class="text-center bg-primary-subtle py-4 recipe-thumbnail">
+                            <i class="bi bi-{{ recipe.thumbnail_icon }} display-4 text-primary"></i>
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title h5">{{ recipe.title }}</h2>
+                            {% for condition in recipe.conditions.all %}
+                                <span class="badge text-bg-primary me-1 recipe-tag">{{ condition.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0">
+                            <a href="{% url 'recipes:detail' pk=recipe.pk %}" class="btn btn-primary btn-sm">詳細を見る</a>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     {% endif %}
 
-    <p><a href="{% url 'recipes:conditions' %}">条件を選び直す</a></p>
+    <p class="mt-4"><a href="{% url 'recipes:conditions' %}" class="link-secondary">条件を選び直す</a></p>
 {% endblock %}
