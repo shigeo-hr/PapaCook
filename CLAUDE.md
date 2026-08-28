@@ -49,5 +49,5 @@ pip freeze > requirements.txt     # regenerate after adding a new dependency
 ## Architecture notes
 
 - Single Django project (`config`) with the standard settings/urls/wsgi/asgi layout; no apps have been created yet. When adding features, they should live in their own Django apps (e.g. `recipes`, `ingredients`, `children`, `accounts`) rather than in `config`.
-- Per the README, **all pages require login except signup/login** (the app handles family members' personal data), so auth needs to be built in from the start of any view/URL work.
+- Per the README, **all pages require login except signup/login** (the app handles family members' personal data), so auth needs to be built in from the start of any view/URL work. The unauthenticated landing page (LP) shown at `/` is also viewable without login, since its purpose is to introduce the service and drive signup/login.
 - The planned data model (see README §"ER図" for the diagram) centers on: users, child profiles (with likes/dislikes/allergies), ingredients, AI-suggested recipes, and post-cooking feedback (eaten/left) — feedback data is meant to feed back into future AI suggestions, which is the app's core differentiator.
