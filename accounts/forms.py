@@ -17,6 +17,8 @@ class SignupForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.fields['password1'].label = 'パスワード'
         self.fields['password2'].label = 'パスワード(確認)'
+        for field in self.fields.values():
+            field.widget.attrs.setdefault('class', 'form-control')
 
     def clean_email(self):
         email = self.cleaned_data['email']
@@ -75,6 +77,11 @@ class EmailChangeForm(forms.ModelForm):
         model = User
         fields = ('email',)
         labels = {'email': 'メールアドレス'}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.setdefault('class', 'form-control')
 
     def clean_email(self):
         email = self.cleaned_data['email']

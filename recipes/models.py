@@ -3,6 +3,8 @@ from django.db import models
 
 from ingredients.models import Ingredient
 
+THUMBNAIL_ICONS = ['cup-hot-fill', 'egg-fried', 'egg-fill', 'basket-fill']
+
 
 class Condition(models.Model):
     name = models.CharField('条件名', max_length=50, unique=True)
@@ -37,6 +39,10 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def thumbnail_icon(self):
+        return THUMBNAIL_ICONS[self.pk % len(THUMBNAIL_ICONS)]
 
 
 class RecipeIngredient(models.Model):

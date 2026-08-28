@@ -62,7 +62,7 @@
     <header>
         <nav class="navbar navbar-dark bg-primary">
             <div class="container">
-                <span class="navbar-brand mb-0 h1">PapaCook</span>
+                <a class="navbar-brand mb-0 h1" href="{% url 'top' %}">PapaCook</a>
                 {% if user.is_authenticated %}
                     <form method="post" action="{% url 'accounts:logout' %}" class="d-flex mb-0">
                         {% csrf_token %}
