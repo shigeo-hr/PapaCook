@@ -11,7 +11,12 @@ from children.models import Child
 from ingredients.models import Ingredient
 
 from .models import Recipe
-from .services import RecipeGenerationError, extract_excluded_ingredients, generate_recipes
+from .services import (
+    RecipeGenerationError,
+    _build_user_prompt,
+    extract_excluded_ingredients,
+    generate_recipes,
+)
 
 User = get_user_model()
 
@@ -59,6 +64,46 @@ class ExtractExcludedIngredientsTest(TestCase):
     def test_returns_empty_list_when_no_children(self):
         user = User.objects.create_user(username='u2', email='u2@example.com', password='TestPass12345')
         self.assertEqual(extract_excluded_ingredients(user.children.all()), [])
+
+
+class BuildUserPromptTest(TestCase):
+    RULE_HEADING = '【for_kids / quick フィールドの設定ルール】'
+    FOR_KIDS_RULE = 'for_kids は、上記の条件で「子供向け: はい」の場合のみ true にしてください。'
+    QUICK_RULE = 'quick は、上記の条件で「時短: はい」の場合のみ true にしてください。'
+
+    def _prompt(self, *, for_kids, quick):
+        return _build_user_prompt(
+            ingredient_names=['豚肉'],
+            for_kids=for_kids,
+            quick=quick,
+            excluded_ingredients=[],
+            count=3,
+        )
+
+    def test_no_conditions_marks_both_as_unspecified_and_keeps_rules(self):
+        prompt = self._prompt(for_kids=False, quick=False)
+
+        self.assertIn('- 子供向け: 指定なし', prompt)
+        self.assertIn('- 時短: 指定なし', prompt)
+        self.assertIn(self.RULE_HEADING, prompt)
+        self.assertIn(self.FOR_KIDS_RULE, prompt)
+        self.assertIn(self.QUICK_RULE, prompt)
+
+    def test_for_kids_only_marks_for_kids_yes(self):
+        prompt = self._prompt(for_kids=True, quick=False)
+
+        self.assertIn('- 子供向け: はい', prompt)
+        self.assertIn('- 時短: 指定なし', prompt)
+        self.assertIn(self.FOR_KIDS_RULE, prompt)
+        self.assertIn(self.QUICK_RULE, prompt)
+
+    def test_quick_only_marks_quick_yes(self):
+        prompt = self._prompt(for_kids=False, quick=True)
+
+        self.assertIn('- 子供向け: 指定なし', prompt)
+        self.assertIn('- 時短: はい', prompt)
+        self.assertIn(self.FOR_KIDS_RULE, prompt)
+        self.assertIn(self.QUICK_RULE, prompt)
 
 
 class GenerateRecipesTest(TestCase):
