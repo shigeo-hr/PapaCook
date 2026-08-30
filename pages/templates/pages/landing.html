@@ -4,19 +4,19 @@
 
 {% block content %}
     <div class="hero-section rounded-3 mb-5 text-center">
-        <div class="d-flex align-items-center justify-content-center gap-3 mb-5 text-primary">
+        <div class="d-flex align-items-center justify-content-center gap-2 gap-md-3 mb-4 mb-md-5 text-primary">
             <i class="bi bi-egg-fried display-3"></i>
             <span class="display-3 fw-bold">PapaCook</span>
         </div>
         <h1 class="display-6 fw-semibold text-primary-emphasis mb-4">
-            「今日のご飯、どうする?」に、<br class="d-none d-md-block">
-            迷わず答えられるパパへ。
+            「今日のご飯、どうする?」に、<br>
+            迷わず答えられる<span class="text-nowrap">パパへ。</span>
         </h1>
-        <p class="fs-6 fw-light text-body-secondary col-lg-7 mx-auto mb-5">
+        <p class="fs-6 fw-light text-body-secondary col-lg-7 mx-auto mb-4 mb-md-5">
             食材を入力するだけで、AIが子供も大人も楽しめるレシピを提案。<br>
             使うほど、わが家仕様に育っていく献立アシスタント。
         </p>
-        <div class="d-flex justify-content-center gap-3">
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 gap-sm-3">
             <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-lg shadow-sm">新規登録する</a>
             <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary btn-lg shadow-sm">ログイン</a>
         </div>
