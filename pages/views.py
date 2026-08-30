@@ -1,6 +1,8 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
 
-class TopView(LoginRequiredMixin, TemplateView):
-    template_name = 'pages/top.html'
+class TopView(TemplateView):
+    def get_template_names(self):
+        if self.request.user.is_authenticated:
+            return ['pages/top.html']
+        return ['pages/landing.html']

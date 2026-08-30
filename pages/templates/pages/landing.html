@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block title %}PapaCook | 今日のご飯、どうする?{% endblock %}
+
+{% block content %}
+    <div class="hero-section rounded-3 mb-5 text-center">
+        <div class="d-flex align-items-center justify-content-center gap-2 gap-md-3 mb-4 mb-md-5 text-primary">
+            <i class="bi bi-egg-fried display-3"></i>
+            <span class="display-3 fw-bold">PapaCook</span>
+        </div>
+        <h1 class="display-6 fw-semibold text-primary-emphasis mb-4">
+            「今日のご飯、どうする?」に、<br>
+            迷わず答えられる<span class="text-nowrap">パパへ。</span>
+        </h1>
+        <p class="fs-6 fw-light text-body-secondary col-lg-7 mx-auto mb-4 mb-md-5">
+            食材を入力するだけで、AIが子供も大人も楽しめる<span class="text-nowrap">レシピを提案。</span><br>
+            使うほど、わが家仕様に育っていく献立<span class="text-nowrap">アシスタント。</span>
+        </p>
+        <div class="d-flex flex-column flex-sm-row justify-content-center gap-2 gap-sm-3">
+            <a href="{% url 'accounts:signup' %}" class="btn btn-primary btn-lg shadow-sm">新規登録する</a>
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary btn-lg shadow-sm">ログイン</a>
+        </div>
+    </div>
+
+    <div class="p-5 mb-5 bg-white rounded-3">
+        <h2 class="text-center fw-bold mb-5">使い方</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="text-center">
+                    <span class="step-badge d-inline-flex align-items-center justify-content-center rounded-circle bg-primary bg-gradient text-white fw-bold fs-4 mb-3">1</span>
+                    <div class="mb-2">
+                        <i class="bi bi-basket-fill fs-2 text-primary"></i>
+                    </div>
+                    <h3 class="h5">今日の食材を入力</h3>
+                    <p class="text-muted mb-0">冷蔵庫にある食材を入力するだけ。難しい準備は要りません。</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="text-center">
+                    <span class="step-badge d-inline-flex align-items-center justify-content-center rounded-circle bg-primary bg-gradient text-white fw-bold fs-4 mb-3">2</span>
+                    <div class="mb-2">
+                        <i class="bi bi-cup-hot-fill fs-2 text-primary"></i>
+                    </div>
+                    <h3 class="h5">AIがレシピを提案</h3>
+                    <p class="text-muted mb-0">子供も大人も楽しめるレシピを、AIがすぐに提案します。</p>
+                </div>
+            </div>
+            <div class="col">
+                <div class="text-center">
+                    <span class="step-badge d-inline-flex align-items-center justify-content-center rounded-circle bg-primary bg-gradient text-white fw-bold fs-4 mb-3">3</span>
+                    <div class="mb-2">
+                        <i class="bi bi-heart-fill fs-2 text-primary"></i>
+                    </div>
+                    <h3 class="h5">わが家仕様に育つ</h3>
+                    <p class="text-muted mb-0">作ってみた子供の反応を記録するほど、提案がわが家好みになります。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="p-5 bg-light rounded-3">
+        <h2 class="text-center fw-bold mb-5">こんな機能があります</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100 text-center feature-card shadow-sm">
+                    <div class="card-body">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3 mb-3">
+                            <i class="bi bi-egg-fried fs-2"></i>
+                        </div>
+                        <h3 class="card-title h5">食材を入力するだけ</h3>
+                        <p class="card-text">冷蔵庫にある食材を入力すると、AIがレシピを提案します。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center feature-card shadow-sm">
+                    <div class="card-body">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3 mb-3">
+                            <i class="bi bi-people-fill fs-2"></i>
+                        </div>
+                        <h3 class="card-title h5">子供の好き嫌い・アレルギーに対応</h3>
+                        <p class="card-text">子供プロフィールを登録すれば、苦手な食材を避けた提案になります。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 text-center feature-card shadow-sm">
+                    <div class="card-body">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center rounded-circle bg-primary text-white p-3 mb-3">
+                            <i class="bi bi-sliders fs-2"></i>
+                        </div>
+                        <h3 class="card-title h5">子供向け・時短などの条件で絞り込み</h3>
+                        <p class="card-text">その日の状況に合わせた条件で、ぴったりのレシピを提案します。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
