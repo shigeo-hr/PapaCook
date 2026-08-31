@@ -13,8 +13,20 @@
     {% endif %}
     <form method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            <label class="form-label">{{ form.common_ingredients.label }}</label>
+        <div class="mb-3 ingredient-other-input">
+            <label for="{{ form.other_ingredients.id_for_label }}" class="form-label fw-bold">{{ form.other_ingredients.label }}</label>
+            <div class="form-text mt-0 mb-2">チェックボックスにない食材は、こちらにカンマ区切りで自由に入力できます。</div>
+            {{ form.other_ingredients }}
+            {% for error in form.other_ingredients.errors %}
+                <div class="text-danger small">{{ error }}</div>
+            {% endfor %}
+        </div>
+
+        <hr class="my-4">
+
+        <div class="mb-3 ingredient-common-list">
+            <label class="form-label fw-bold">{{ form.common_ingredients.label }}</label>
+            <div class="form-text mt-0 mb-2">よく使う食材はこちらから選べます。</div>
             {% for checkbox in form.common_ingredients %}
                 <div class="form-check">
                     {{ checkbox.tag }}
@@ -22,13 +34,6 @@
                 </div>
             {% endfor %}
             {% for error in form.common_ingredients.errors %}
-                <div class="text-danger small">{{ error }}</div>
-            {% endfor %}
-        </div>
-        <div class="mb-3">
-            <label for="{{ form.other_ingredients.id_for_label }}" class="form-label">{{ form.other_ingredients.label }}</label>
-            {{ form.other_ingredients }}
-            {% for error in form.other_ingredients.errors %}
                 <div class="text-danger small">{{ error }}</div>
             {% endfor %}
         </div>
