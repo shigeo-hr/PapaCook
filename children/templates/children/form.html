@@ -10,6 +10,12 @@
             <div class="mb-3">
                 <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
                 {{ field }}
+                {% if field.name == 'allergies' %}
+                    <div class="form-text allergy-notice">
+                        AIがアレルギー食材の除外を試みますが、100%を保証するものではありません。
+                        提案されたレシピは必ずご自身で最終確認をお願いします。
+                    </div>
+                {% endif %}
                 {% for error in field.errors %}
                     <div class="text-danger small">{{ error }}</div>
                 {% endfor %}
